@@ -1,25 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios'; // Import axios
 import './FormPage.css';
+import { useParams } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 
-function FormPage() {
+const FormPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const [userName,setUsername]= useState('')
+  const location = useLocation();
+console.log("userName is",location.state.username);
+const fetchUserData = async (username) => {
+  try {
+    console.log("printin username before calling",username);
+    const response = await axios.get(`http://localhost:4000/users/${username}`);
+    const userData = response.data;
 
+    // Set the form data with the user data if it exists
+    if (userData) {
+      setPhoneNumber(userData.phoneNumber);
+      setEmail(userData.email);
+      setName(userData.name);
+      setDateOfBirth(userData.dateOfBirth);
+      setUsername(userData.userName);
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
+useEffect(() => {
+  // Fetch user data when the component mounts
+  console.log("useeffect called  ",userName);
+  if (userName) {
+    fetchUserData(userName);
+  }
+}, []);
+setUsername(location.state.username)
+console.log("username is f " ,userName);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+   
     // Create a data object to send in the POST request
     const formData = {
       phoneNumber,
       email,
       name,
       dateOfBirth,
+      userName
     };
 
     try {

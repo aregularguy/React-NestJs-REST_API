@@ -11,14 +11,14 @@ const HomePage = () => {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    console.log(username);
+    console.log("handling change" ,username);
   };
 
   const handleSubmit = () => {
     // Redirect the user to the Form Page with the username as a query parameter
-    
-    console.log("usernam",username);
-    navigate(`/form?username=${username}`)
+    // console.log("username",username);
+    // navigate(`/form?username=${username}`)
+    navigate('/form',{state:{username:username}})
   };
 
   return (
@@ -31,12 +31,15 @@ const HomePage = () => {
             <Card.Text>
               <input
                 type="text"
-                placeholder="Username"  
+                placeholder="Username" onChange={handleUsernameChange} 
                 // Implement your username input logic here
               />
             </Card.Text>
            {/* Add a link to the Form Page */}
-              <Button variant="primary" onClick={handleSubmit()}>Submit</Button>
+           {/* <Link to={`/form?username=${username}`}> */}
+  <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+{/* // </Link> */}
+
             
           </Card.Body>
         </Card>

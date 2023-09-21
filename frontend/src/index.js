@@ -14,6 +14,7 @@ root.render(
     <Routes>
         <Route exact path="/" element={<App />} />
         <Route exact path="/form/:username" element={<FormPage />} />
+        <Route exact path="/form" element={<FormPage />} />
     </Routes>
 </Router>
 );
