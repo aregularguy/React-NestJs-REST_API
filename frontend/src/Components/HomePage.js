@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate ,Link} from 'react-router-dom';
 import {Card,Button} from 'react-bootstrap'
-import "./FormPage.css"
+import './FormPage.css';
 // const navigate = useNavigate();
 // navigate('/home');
 const HomePage = () => {

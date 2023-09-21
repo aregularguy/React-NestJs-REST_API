@@ -14,7 +14,7 @@ const FormPage = () => {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [userName,setUsername]= useState('')
   const location = useLocation();
-console.log("userName is",location.state.username);
+// console.log("userName is",location.state.username);
 const fetchUserData = async (username) => {
   try {
     console.log("printin username before calling",username);
@@ -23,6 +23,7 @@ const fetchUserData = async (username) => {
 
     // Set the form data with the user data if it exists
     if (userData) {
+      console.log("user data response is ",userData);
       setPhoneNumber(userData.phoneNumber);
       setEmail(userData.email);
       setName(userData.name);
@@ -35,13 +36,19 @@ const fetchUserData = async (username) => {
 };
 useEffect(() => {
   // Fetch user data when the component mounts
-  console.log("useeffect called  ",userName);
+  console.log("useeffect called before   ",userName);
   if (userName) {
     fetchUserData(userName);
   }
-}, []);
-setUsername(location.state.username)
-console.log("username is f " ,userName);
+}, [userName]);
+useEffect(() => {
+  // Set the username from the location state when the component mounts
+  if (location.state && location.state.username) {
+    setUsername(location.state.username);
+    console.log("username is f " ,userName);
+
+  }
+}, [location.state]);
   const handleSubmit = async (e) => {
     e.preventDefault();
    
@@ -57,12 +64,8 @@ console.log("username is f " ,userName);
     try {
       // Send a POST request to your NestJS backend
       const response = await axios.post('http://localhost:4000/users', formData);
-
-      // Check if the request was successful
       if (response.status === 201) {
         console.log('Form submitted successfully');
-        // You can optionally navigate to the Result Page here
-        // For example, using React Router: history.push('/result');
       } else {
         console.error('Form submission failed');
       }
@@ -72,8 +75,7 @@ console.log("username is f " ,userName);
   };
 
   const handleCancel = () => {
-    // Implement logic to discard changes and navigate back to the homepage
-    // You can use react-router-dom's history for navigation
+   
   };
 
   return (
