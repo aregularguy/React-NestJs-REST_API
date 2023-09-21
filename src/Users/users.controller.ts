@@ -23,9 +23,10 @@ export class UsersController {
   async ping(@Res() res: Response): Promise<void> {
     res.status(200).send('Server is running');
   }
-  @Get('checkUsername/:username')
-  async checkUsername(@Param('username') username: string): Promise<{ exists: boolean }> {
-    const userExists = await this.usersService.checkUsername(username);
-    return { exists: userExists };
+  @Get(':username')
+  async findByUsername(@Param('username') username: string) {
+    console.log("called controller");
+    
+    return this.usersService.findByUsername(username);
   }
 }

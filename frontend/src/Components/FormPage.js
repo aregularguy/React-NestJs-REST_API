@@ -1,36 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios'; // Import axios
 import './FormPage.css';
+import { useParams } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 
-function FormPage() {
+const FormPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const [userName,setUsername]= useState('')
+  const location = useLocation();
+// console.log("userName is",location.state.username);
+const fetchUserData = async (username) => {
+  try {
+    console.log("printin username before calling",username);
+    const response = await axios.get(`http://localhost:4000/users/${username}`);
+    const userData = response.data;
 
+    // Set the form data with the user data if it exists
+    if (userData) {
+      console.log("user data response is ",userData);
+      setPhoneNumber(userData.phoneNumber);
+      setEmail(userData.email);
+      setName(userData.name);
+      setDateOfBirth(userData.dateOfBirth);
+      setUsername(userData.userName);
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
+useEffect(() => {
+  // Fetch user data when the component mounts
+  console.log("useeffect called before   ",userName);
+  if (userName) {
+    fetchUserData(userName);
+  }
+}, [userName]);
+useEffect(() => {
+  // Set the username from the location state when the component mounts
+  if (location.state && location.state.username) {
+    setUsername(location.state.username);
+    console.log("username is f " ,userName);
+
+  }
+}, [location.state]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+   
     // Create a data object to send in the POST request
     const formData = {
       phoneNumber,
       email,
       name,
       dateOfBirth,
+      userName
     };
 
     try {
       // Send a POST request to your NestJS backend
       const response = await axios.post('http://localhost:4000/users', formData);
-
-      // Check if the request was successful
       if (response.status === 201) {
         console.log('Form submitted successfully');
-        // You can optionally navigate to the Result Page here
-        // For example, using React Router: history.push('/result');
       } else {
         console.error('Form submission failed');
       }
@@ -40,8 +75,7 @@ function FormPage() {
   };
 
   const handleCancel = () => {
-    // Implement logic to discard changes and navigate back to the homepage
-    // You can use react-router-dom's history for navigation
+   
   };
 
   return (

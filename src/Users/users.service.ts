@@ -20,9 +20,9 @@ async create(createUserDto: User): Promise<User> {
   async findOne(phoneNumber: string): Promise<User> {
     return this.userModel.findOne({ phoneNumber }).exec();
   }
-  async checkUsername(username: string): Promise<boolean> {
-    // Check if a user with the given username exists in the database
-    const user = await this.userModel.findOne({ username }).exec();
-    return !!user; // Return true if user exists, false otherwise
+  async findByUsername(username: string): Promise<User> {
+       console.log("finding the username data");
+       
+    return this.userModel.findOne({ userName: username }).exec();
   }
 }
