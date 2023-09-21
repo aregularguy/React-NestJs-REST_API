@@ -1,0 +1,13 @@
+/* src/HomePage.css */
+.home-page {
+    height: 100vh;
+    background: linear-gradient(to bottom, #87CEEB, #00BFFF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .center-card {
+    text-align: center;
+  }
+  
