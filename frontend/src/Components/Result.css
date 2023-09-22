@@ -1,0 +1,36 @@
+/* Result.css */
+
+.body
+{
+   background-color: aqua;
+}
+.result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .congrats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .congrats svg {
+    width: 100px;
+    height: 100px;
+  }
+  
+  h2 {
+    color: green;
+    margin-top: 10px;
+  }
+  
+  p {
+    font-size: 18px;
+    text-align: center;
+  }
+  

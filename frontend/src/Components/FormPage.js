@@ -6,6 +6,8 @@ import axios from 'axios'; // Import axios
 import './FormPage.css';
 import { useParams } from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const FormPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -15,6 +17,7 @@ const FormPage = () => {
   const [userName,setUsername]= useState('')
   const location = useLocation();
 // console.log("userName is",location.state.username);
+const nav = useNavigate()
 const fetchUserData = async (username) => {
   try {
     console.log("printin username before calling",username);
@@ -69,6 +72,7 @@ useEffect(() => {
       } else {
         console.error('Form submission failed');
       }
+      nav('/result')
     } catch (error) {
       console.error('An error occurred while submitting the form:', error);
     }
@@ -76,14 +80,17 @@ useEffect(() => {
 
   const handleCancel = () => {
    
+   nav('/')
   };
 
   return (
     <div className="form-page">
+      
       <div className="center-card">
-        <Card style={{ width: '30rem' }}>
+      <h2>Hanabi Technology</h2>
+        <Card style={{ height: '30rem',width:'30rem' }}>
           <Card.Body>
-            <Card.Title>Form</Card.Title>
+            <Card.Title>Enter User Details</Card.Title>
             <Form onSubmit={handleSubmit}>
             <Form.Group controlId="phoneNumber">
                 <Form.Label>Phone Number</Form.Label>

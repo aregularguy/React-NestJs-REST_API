@@ -1,8 +1,8 @@
 // HomePage.js
 import React, { useState } from 'react';
-import { useNavigate ,Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {Card,Button} from 'react-bootstrap'
-import './FormPage.css';
+import './HomePage.css';
 // const navigate = useNavigate();
 // navigate('/home');
 const HomePage = () => {
@@ -24,25 +24,14 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <div className="gradient-background">
+      <h2  className="heading" >Hanabi Technology</h2>
         <div className="card">
-        <Card style={{ width: '18rem' }}>
-          <Card.Body>
-            <Card.Title>Enter Your Username</Card.Title>
-            <Card.Text>
               <input
                 type="text"
                 placeholder="Username" onChange={handleUsernameChange} 
                 // Implement your username input logic here
               />
-            </Card.Text>
-           {/* Add a link to the Form Page */}
-           {/* <Link to={`/form?username=${username}`}> */}
-  <Button variant="primary" onClick={handleSubmit}>Submit</Button>
-{/* // </Link> */}
-
-            
-          </Card.Body>
-        </Card>
+     <Button variant="primary" onClick={handleSubmit}>Submit</Button>        
         </div>
       </div>
     </div>
